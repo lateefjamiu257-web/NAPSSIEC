@@ -32,7 +32,9 @@ def main():
     print("=" * 75)
     print("Press CTRL+C to stop the server.\n")
 
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    is_dev = "RENDER" not in os.environ and "PORT" not in os.environ
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port, reload=is_dev)
 
 if __name__ == "__main__":
     main()
